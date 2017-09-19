@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LIbraryManagementDBModelStoreContainer" CdmEntityContainer="LIbraryManagementDBContext">
+    <EntitySetMapping Name="AUTHORS">
+      <EntityTypeMapping TypeName="LIbraryManagementDBModel.AUTHOR">
+        <MappingFragment StoreEntitySet="AUTHORS">
+          <ScalarProperty Name="AUTHOR_ID" ColumnName="AUTHOR_ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BOOKs">
+      <EntityTypeMapping TypeName="LIbraryManagementDBModel.BOOK">
+        <MappingFragment StoreEntitySet="BOOK">
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BOOK_LOANS">
+      <EntityTypeMapping TypeName="LIbraryManagementDBModel.BOOK_LOANS">
+        <MappingFragment StoreEntitySet="BOOK_LOANS">
+          <ScalarProperty Name="LOAN_ID" ColumnName="LOAN_ID" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="CARD_ID" ColumnName="CARD_ID" />
+          <ScalarProperty Name="DATE_OUT" ColumnName="DATE_OUT" />
+          <ScalarProperty Name="DUE_DATE" ColumnName="DUE_DATE" />
+          <ScalarProperty Name="DATE_IN" ColumnName="DATE_IN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BORROWERs">
+      <EntityTypeMapping TypeName="LIbraryManagementDBModel.BORROWER">
+        <MappingFragment StoreEntitySet="BORROWER">
+          <ScalarProperty Name="CARD_ID" ColumnName="CARD_ID" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="FNAME" ColumnName="FNAME" />
+          <ScalarProperty Name="LNAME" ColumnName="LNAME" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BOOK_AUTHORS">
+      <EntityTypeMapping TypeName="LIbraryManagementDBModel.BOOK_AUTHORS">
+        <MappingFragment StoreEntitySet="BOOK_AUTHORS">
+          <ScalarProperty Name="AUTHOR_ID" ColumnName="AUTHOR_ID" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FINES">
+      <EntityTypeMapping TypeName="LIbraryManagementDBModel.FINE">
+        <MappingFragment StoreEntitySet="FINES">
+          <ScalarProperty Name="LOAN_ID" ColumnName="LOAN_ID" />
+          <ScalarProperty Name="FINE_AMT" ColumnName="FINE_AMT" />
+          <ScalarProperty Name="PAID" ColumnName="PAID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Searches">
+      <EntityTypeMapping TypeName="LIbraryManagementDBModel.Search">
+        <MappingFragment StoreEntitySet="Search">
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+          <ScalarProperty Name="AUTHORS" ColumnName="AUTHORS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SearchNews">
+      <EntityTypeMapping TypeName="LIbraryManagementDBModel.SearchNew">
+        <MappingFragment StoreEntitySet="SearchNew">
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+          <ScalarProperty Name="AUTHORS" ColumnName="AUTHORS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vWSEARCHes">
+      <EntityTypeMapping TypeName="LIbraryManagementDBModel.vWSEARCH">
+        <MappingFragment StoreEntitySet="vWSEARCH">
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

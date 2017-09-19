@@ -1,0 +1,67 @@
+﻿@model IEnumerable<LibraryManagmentSystemFinal.BOOK_LOANS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LOAN_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ISBN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CARD_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DATE_OUT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DUE_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DATE_IN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BORROWER.SSN)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LOAN_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISBN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CARD_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DATE_OUT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DUE_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DATE_IN)
+        </td>
+        
+        <td>
+            
+            |@Html.ActionLink("Details", "Details", new { id=item.LOAN_ID }) |
+            
+        </td>
+    </tr>
+}
+
+</table>

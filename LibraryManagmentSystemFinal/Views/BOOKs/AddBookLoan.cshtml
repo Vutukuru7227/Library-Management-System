@@ -1,0 +1,52 @@
+﻿@model IEnumerable<LibraryManagmentSystemFinal.BOOK_LOANS>
+
+<h1>Total Number of Books Borrowed: @Session["count"]</h1>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LOAN_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CARD_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ISBN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DATE_OUT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DUE_DATE)
+        </th>
+        <th>@Html.DisplayNameFor(model => model.DATE_IN)</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LOAN_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CARD_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DATE_OUT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DUE_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DATE_IN)
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Generate Request", "ConfirmBookLoan")
+</p>

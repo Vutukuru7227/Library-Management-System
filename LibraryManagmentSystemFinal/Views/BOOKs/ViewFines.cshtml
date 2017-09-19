@@ -1,0 +1,52 @@
+﻿@model IEnumerable<LibraryManagmentSystemFinal.FINE>
+
+@{
+    ViewBag.Title = "ViewFines";
+}
+
+<h2>ViewFines</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BOOK_LOANS.CARD_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LOAN_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FINE_AMT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PAID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <th>
+            @Html.DisplayFor(model => item.BOOK_LOANS.CARD_ID)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.LOAN_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FINE_AMT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PAID)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FINE_AMT }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FINE_AMT }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FINE_AMT })
+        </td>
+    </tr>
+}
+
+</table>

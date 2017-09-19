@@ -1,0 +1,45 @@
+﻿@model IEnumerable<LibraryManagmentSystemFinal.FINE>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LOAN_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FINE_AMT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PAID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LOAN_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FINE_AMT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PAID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LOAN_ID }) |
+            @Html.ActionLink("Pay Fine", "Payment", new {id = item.LOAN_ID, fine_amt = item.FINE_AMT }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LOAN_ID })
+        </td>
+    </tr>
+}
+
+</table>

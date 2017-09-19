@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b1a6668919ad4ccc9bedc8d06d3db0ef" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="LIbraryManagementDBModel.AUTHOR" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIbraryManagementDBModel.BOOK" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIbraryManagementDBModel.BOOK_LOANS" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIbraryManagementDBModel.BORROWER" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIbraryManagementDBModel.BOOK_AUTHORS" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIbraryManagementDBModel.FINE" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIbraryManagementDBModel.Search" Width="1.5" PointX="5.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIbraryManagementDBModel.SearchNew" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIbraryManagementDBModel.vWSEARCH" Width="1.5" PointX="7.75" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="LIbraryManagementDBModel.fk_authorId_book_authors" ManuallyRouted="false" />
+        <AssociationConnector Association="LIbraryManagementDBModel.fk_isbn_book_authors" ManuallyRouted="false" />
+        <AssociationConnector Association="LIbraryManagementDBModel.fk_isbns_book_loans" ManuallyRouted="false" />
+        <AssociationConnector Association="LIbraryManagementDBModel.fk_card_id_book_loans" ManuallyRouted="false" />
+        <AssociationConnector Association="LIbraryManagementDBModel.fk_laon_id_fines" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

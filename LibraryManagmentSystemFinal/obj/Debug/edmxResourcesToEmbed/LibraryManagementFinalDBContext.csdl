@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LIbraryManagementDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AUTHOR">
+    <Key>
+      <PropertyRef Name="AUTHOR_ID" />
+    </Key>
+    <Property Name="AUTHOR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BOOK_AUTHORS" Relationship="Self.fk_authorId_book_authors" FromRole="AUTHORS" ToRole="BOOK_AUTHORS" />
+  </EntityType>
+  <EntityType Name="BOOK">
+    <Key>
+      <PropertyRef Name="ISBN" />
+    </Key>
+    <Property Name="ISBN" Type="Int64" Nullable="false" />
+    <Property Name="TITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BOOK_AUTHORS" Relationship="Self.fk_isbn_book_authors" FromRole="BOOK" ToRole="BOOK_AUTHORS" />
+    <NavigationProperty Name="BOOK_LOANS" Relationship="Self.fk_isbns_book_loans" FromRole="BOOK" ToRole="BOOK_LOANS" />
+  </EntityType>
+  <EntityType Name="BOOK_LOANS">
+    <Key>
+      <PropertyRef Name="LOAN_ID" />
+    </Key>
+    <Property Name="LOAN_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ISBN" Type="Int64" />
+    <Property Name="CARD_ID" Type="Int32" />
+    <Property Name="DATE_OUT" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DUE_DATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DATE_IN" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BOOK" Relationship="Self.fk_isbns_book_loans" FromRole="BOOK_LOANS" ToRole="BOOK" />
+    <NavigationProperty Name="BORROWER" Relationship="Self.fk_card_id_book_loans" FromRole="BOOK_LOANS" ToRole="BORROWER" />
+    <NavigationProperty Name="FINES" Relationship="Self.fk_laon_id_fines" FromRole="BOOK_LOANS" ToRole="FINES" />
+  </EntityType>
+  <EntityType Name="BORROWER">
+    <Key>
+      <PropertyRef Name="CARD_ID" />
+    </Key>
+    <Property Name="CARD_ID" Type="Int32" Nullable="false" />
+    <Property Name="SSN" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="FNAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LNAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PHONE" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="BOOK_LOANS" Relationship="Self.fk_card_id_book_loans" FromRole="BORROWER" ToRole="BOOK_LOANS" />
+  </EntityType>
+  <EntityType Name="BOOK_AUTHORS">
+    <Key>
+      <PropertyRef Name="ISBN" />
+    </Key>
+    <Property Name="AUTHOR_ID" Type="Int32" />
+    <Property Name="ISBN" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="AUTHOR" Relationship="Self.fk_authorId_book_authors" FromRole="BOOK_AUTHORS" ToRole="AUTHORS" />
+    <NavigationProperty Name="BOOK" Relationship="Self.fk_isbn_book_authors" FromRole="BOOK_AUTHORS" ToRole="BOOK" />
+  </EntityType>
+  <EntityType Name="FINE">
+    <Key>
+      <PropertyRef Name="FINE_AMT" />
+    </Key>
+    <Property Name="LOAN_ID" Type="Int32" />
+    <Property Name="FINE_AMT" Type="Decimal" Precision="13" Scale="4" Nullable="false" />
+    <Property Name="PAID" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BOOK_LOANS" Relationship="Self.fk_laon_id_fines" FromRole="FINES" ToRole="BOOK_LOANS" />
+  </EntityType>
+  <EntityType Name="Search">
+    <Key>
+      <PropertyRef Name="ISBN" />
+      <PropertyRef Name="TITLE" />
+    </Key>
+    <Property Name="ISBN" Type="Int64" Nullable="false" />
+    <Property Name="TITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AUTHORS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SearchNew">
+    <Key>
+      <PropertyRef Name="ISBN" />
+      <PropertyRef Name="TITLE" />
+    </Key>
+    <Property Name="ISBN" Type="Int64" Nullable="false" />
+    <Property Name="TITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AUTHORS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vWSEARCH">
+    <Key>
+      <PropertyRef Name="NAME" />
+      <PropertyRef Name="TITLE" />
+    </Key>
+    <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ISBN" Type="Int64" />
+  </EntityType>
+  <Association Name="fk_authorId_book_authors">
+    <End Role="AUTHORS" Type="Self.AUTHOR" Multiplicity="0..1" />
+    <End Role="BOOK_AUTHORS" Type="Self.BOOK_AUTHORS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AUTHORS">
+        <PropertyRef Name="AUTHOR_ID" />
+      </Principal>
+      <Dependent Role="BOOK_AUTHORS">
+        <PropertyRef Name="AUTHOR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_isbn_book_authors">
+    <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
+    <End Role="BOOK_AUTHORS" Type="Self.BOOK_AUTHORS" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="BOOK">
+        <PropertyRef Name="ISBN" />
+      </Principal>
+      <Dependent Role="BOOK_AUTHORS">
+        <PropertyRef Name="ISBN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_isbns_book_loans">
+    <End Role="BOOK" Type="Self.BOOK" Multiplicity="0..1" />
+    <End Role="BOOK_LOANS" Type="Self.BOOK_LOANS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOK">
+        <PropertyRef Name="ISBN" />
+      </Principal>
+      <Dependent Role="BOOK_LOANS">
+        <PropertyRef Name="ISBN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_card_id_book_loans">
+    <End Role="BORROWER" Type="Self.BORROWER" Multiplicity="0..1" />
+    <End Role="BOOK_LOANS" Type="Self.BOOK_LOANS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BORROWER">
+        <PropertyRef Name="CARD_ID" />
+      </Principal>
+      <Dependent Role="BOOK_LOANS">
+        <PropertyRef Name="CARD_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_laon_id_fines">
+    <End Role="BOOK_LOANS" Type="Self.BOOK_LOANS" Multiplicity="0..1" />
+    <End Role="FINES" Type="Self.FINE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOK_LOANS">
+        <PropertyRef Name="LOAN_ID" />
+      </Principal>
+      <Dependent Role="FINES">
+        <PropertyRef Name="LOAN_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LIbraryManagementDBContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AUTHORS" EntityType="Self.AUTHOR" />
+    <EntitySet Name="BOOKs" EntityType="Self.BOOK" />
+    <EntitySet Name="BOOK_LOANS" EntityType="Self.BOOK_LOANS" />
+    <EntitySet Name="BORROWERs" EntityType="Self.BORROWER" />
+    <EntitySet Name="BOOK_AUTHORS" EntityType="Self.BOOK_AUTHORS" />
+    <EntitySet Name="FINES" EntityType="Self.FINE" />
+    <EntitySet Name="Searches" EntityType="Self.Search" />
+    <EntitySet Name="SearchNews" EntityType="Self.SearchNew" />
+    <EntitySet Name="vWSEARCHes" EntityType="Self.vWSEARCH" />
+    <AssociationSet Name="fk_authorId_book_authors" Association="Self.fk_authorId_book_authors">
+      <End Role="AUTHORS" EntitySet="AUTHORS" />
+      <End Role="BOOK_AUTHORS" EntitySet="BOOK_AUTHORS" />
+    </AssociationSet>
+    <AssociationSet Name="fk_isbn_book_authors" Association="Self.fk_isbn_book_authors">
+      <End Role="BOOK" EntitySet="BOOKs" />
+      <End Role="BOOK_AUTHORS" EntitySet="BOOK_AUTHORS" />
+    </AssociationSet>
+    <AssociationSet Name="fk_isbns_book_loans" Association="Self.fk_isbns_book_loans">
+      <End Role="BOOK" EntitySet="BOOKs" />
+      <End Role="BOOK_LOANS" EntitySet="BOOK_LOANS" />
+    </AssociationSet>
+    <AssociationSet Name="fk_card_id_book_loans" Association="Self.fk_card_id_book_loans">
+      <End Role="BORROWER" EntitySet="BORROWERs" />
+      <End Role="BOOK_LOANS" EntitySet="BOOK_LOANS" />
+    </AssociationSet>
+    <AssociationSet Name="fk_laon_id_fines" Association="Self.fk_laon_id_fines">
+      <End Role="BOOK_LOANS" EntitySet="BOOK_LOANS" />
+      <End Role="FINES" EntitySet="FINES" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

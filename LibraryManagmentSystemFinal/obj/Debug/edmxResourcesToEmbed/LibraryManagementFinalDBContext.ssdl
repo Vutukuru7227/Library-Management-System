@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LIbraryManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AUTHORS">
+    <Key>
+      <PropertyRef Name="AUTHOR_ID" />
+    </Key>
+    <Property Name="AUTHOR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BOOK">
+    <Key>
+      <PropertyRef Name="ISBN" />
+    </Key>
+    <Property Name="ISBN" Type="bigint" Nullable="false" />
+    <Property Name="TITLE" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LIbraryManagementDB.dbo.BOOK_AUTHORS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="BOOK_AUTHORS">
+    <Key>
+      <PropertyRef Name="ISBN" />
+    </Key>
+    <Property Name="AUTHOR_ID" Type="int" />
+    <Property Name="ISBN" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BOOK_LOANS">
+    <Key>
+      <PropertyRef Name="LOAN_ID" />
+    </Key>
+    <Property Name="LOAN_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ISBN" Type="bigint" />
+    <Property Name="CARD_ID" Type="int" />
+    <Property Name="DATE_OUT" Type="datetime" Nullable="false" />
+    <Property Name="DUE_DATE" Type="datetime" Nullable="false" />
+    <Property Name="DATE_IN" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BORROWER">
+    <Key>
+      <PropertyRef Name="CARD_ID" />
+    </Key>
+    <Property Name="CARD_ID" Type="int" Nullable="false" />
+    <Property Name="SSN" Type="varchar" MaxLength="11" />
+    <Property Name="FNAME" Type="varchar" MaxLength="25" />
+    <Property Name="LNAME" Type="varchar" MaxLength="25" />
+    <Property Name="ADDRESS" Type="varchar" MaxLength="50" />
+    <Property Name="PHONE" Type="varchar" MaxLength="14" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LIbraryManagementDB.dbo.FINES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="FINES">
+    <Key>
+      <PropertyRef Name="FINE_AMT" />
+    </Key>
+    <Property Name="LOAN_ID" Type="int" />
+    <Property Name="FINE_AMT" Type="decimal" Precision="13" Scale="4" Nullable="false" />
+    <Property Name="PAID" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LIbraryManagementDB.dbo.Search' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Search">
+    <Key>
+      <PropertyRef Name="ISBN" />
+      <PropertyRef Name="TITLE" />
+    </Key>
+    <Property Name="ISBN" Type="bigint" Nullable="false" />
+    <Property Name="TITLE" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="AUTHORS" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LIbraryManagementDB.dbo.SearchNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="SearchNew">
+    <Key>
+      <PropertyRef Name="ISBN" />
+      <PropertyRef Name="TITLE" />
+    </Key>
+    <Property Name="ISBN" Type="bigint" Nullable="false" />
+    <Property Name="TITLE" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="AUTHORS" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LIbraryManagementDB.dbo.vWSEARCH' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vWSEARCH">
+    <Key>
+      <PropertyRef Name="NAME" />
+      <PropertyRef Name="TITLE" />
+    </Key>
+    <Property Name="NAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TITLE" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="ISBN" Type="bigint" />
+  </EntityType>
+  <Association Name="fk_authorId_book_authors">
+    <End Role="AUTHORS" Type="Self.AUTHORS" Multiplicity="0..1" />
+    <End Role="BOOK_AUTHORS" Type="Self.BOOK_AUTHORS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AUTHORS">
+        <PropertyRef Name="AUTHOR_ID" />
+      </Principal>
+      <Dependent Role="BOOK_AUTHORS">
+        <PropertyRef Name="AUTHOR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_card_id_book_loans">
+    <End Role="BORROWER" Type="Self.BORROWER" Multiplicity="0..1" />
+    <End Role="BOOK_LOANS" Type="Self.BOOK_LOANS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BORROWER">
+        <PropertyRef Name="CARD_ID" />
+      </Principal>
+      <Dependent Role="BOOK_LOANS">
+        <PropertyRef Name="CARD_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_isbn_book_authors">
+    <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
+    <End Role="BOOK_AUTHORS" Type="Self.BOOK_AUTHORS" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="BOOK">
+        <PropertyRef Name="ISBN" />
+      </Principal>
+      <Dependent Role="BOOK_AUTHORS">
+        <PropertyRef Name="ISBN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_isbns_book_loans">
+    <End Role="BOOK" Type="Self.BOOK" Multiplicity="0..1" />
+    <End Role="BOOK_LOANS" Type="Self.BOOK_LOANS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOK">
+        <PropertyRef Name="ISBN" />
+      </Principal>
+      <Dependent Role="BOOK_LOANS">
+        <PropertyRef Name="ISBN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_laon_id_fines">
+    <End Role="BOOK_LOANS" Type="Self.BOOK_LOANS" Multiplicity="0..1" />
+    <End Role="FINES" Type="Self.FINES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOOK_LOANS">
+        <PropertyRef Name="LOAN_ID" />
+      </Principal>
+      <Dependent Role="FINES">
+        <PropertyRef Name="LOAN_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LIbraryManagementDBModelStoreContainer">
+    <EntitySet Name="AUTHORS" EntityType="Self.AUTHORS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BOOK" EntityType="Self.BOOK" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BOOK_LOANS" EntityType="Self.BOOK_LOANS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BORROWER" EntityType="Self.BORROWER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BOOK_AUTHORS" EntityType="Self.BOOK_AUTHORS" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [BOOK_AUTHORS].[AUTHOR_ID] AS [AUTHOR_ID], 
+    [BOOK_AUTHORS].[ISBN] AS [ISBN]
+    FROM [dbo].[BOOK_AUTHORS] AS [BOOK_AUTHORS]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="FINES" EntityType="Self.FINES" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [FINES].[LOAN_ID] AS [LOAN_ID], 
+    [FINES].[FINE_AMT] AS [FINE_AMT], 
+    [FINES].[PAID] AS [PAID]
+    FROM [dbo].[FINES] AS [FINES]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Search" EntityType="Self.Search" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Search].[ISBN] AS [ISBN], 
+    [Search].[TITLE] AS [TITLE], 
+    [Search].[AUTHORS] AS [AUTHORS]
+    FROM [dbo].[Search] AS [Search]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="SearchNew" EntityType="Self.SearchNew" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [SearchNew].[ISBN] AS [ISBN], 
+    [SearchNew].[TITLE] AS [TITLE], 
+    [SearchNew].[AUTHORS] AS [AUTHORS]
+    FROM [dbo].[SearchNew] AS [SearchNew]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vWSEARCH" EntityType="Self.vWSEARCH" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vWSEARCH].[NAME] AS [NAME], 
+    [vWSEARCH].[TITLE] AS [TITLE], 
+    [vWSEARCH].[ISBN] AS [ISBN]
+    FROM [dbo].[vWSEARCH] AS [vWSEARCH]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="fk_authorId_book_authors" Association="Self.fk_authorId_book_authors">
+      <End Role="AUTHORS" EntitySet="AUTHORS" />
+      <End Role="BOOK_AUTHORS" EntitySet="BOOK_AUTHORS" />
+    </AssociationSet>
+    <AssociationSet Name="fk_card_id_book_loans" Association="Self.fk_card_id_book_loans">
+      <End Role="BORROWER" EntitySet="BORROWER" />
+      <End Role="BOOK_LOANS" EntitySet="BOOK_LOANS" />
+    </AssociationSet>
+    <AssociationSet Name="fk_isbn_book_authors" Association="Self.fk_isbn_book_authors">
+      <End Role="BOOK" EntitySet="BOOK" />
+      <End Role="BOOK_AUTHORS" EntitySet="BOOK_AUTHORS" />
+    </AssociationSet>
+    <AssociationSet Name="fk_isbns_book_loans" Association="Self.fk_isbns_book_loans">
+      <End Role="BOOK" EntitySet="BOOK" />
+      <End Role="BOOK_LOANS" EntitySet="BOOK_LOANS" />
+    </AssociationSet>
+    <AssociationSet Name="fk_laon_id_fines" Association="Self.fk_laon_id_fines">
+      <End Role="BOOK_LOANS" EntitySet="BOOK_LOANS" />
+      <End Role="FINES" EntitySet="FINES" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

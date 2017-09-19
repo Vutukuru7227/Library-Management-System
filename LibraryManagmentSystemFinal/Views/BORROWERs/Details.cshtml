@@ -1,0 +1,58 @@
+﻿@model LibraryManagmentSystemFinal.BORROWER
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BORROWER</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SSN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SSN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FNAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FNAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LNAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LNAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ADDRESS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ADDRESS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PHONE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PHONE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CARD_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

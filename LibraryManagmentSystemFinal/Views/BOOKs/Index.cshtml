@@ -1,0 +1,65 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<LibraryManagmentSystemFinal.SearchNew>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<p>
+    @Html.ActionLink("Check In", "CheckInBook")
+</p>
+<p>
+    @using (Html.BeginForm("Index", "BOOKs", FormMethod.Get))
+    {
+        <b>SEARCH BY:</b>@Html.RadioButton("searchBy","ISBN")<text>ISBN</text>
+        @Html.RadioButton("searchBy", "Title")<text>Title</text>
+        @Html.RadioButton("searchBy", "Author")<text>Author</text>
+        @Html.RadioButton("searchBy", "Availability")<text>Availability</text>
+        @Html.TextBox("search")<input type="submit" value="Search" />
+    }
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ISBN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TITLE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().AUTHORS)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISBN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TITLE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AUTHORS)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.ISBN }) |*@
+            @Html.ActionLink("Details", "Details", new { id=item.ISBN }) |
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.ISBN })*@
+        </td>
+    </tr>
+}
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }),
+    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded}
+
+    )
